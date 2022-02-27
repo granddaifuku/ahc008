@@ -187,16 +187,25 @@ int main() {
   cin >> M;
   hx.resize(M), hy.resize(M);
   vector<int> dhx(M, 1), dhy(M, 1);  //方向を表す
+  int mx = 0;
   rep(i, M) {
     cin >> hx[i] >> hy[i];
     hx[i]--, hy[i]--;
     set_object(hx[i], hy[i], Objects::Human);
+    if (hx[i] >= mx) {
+      mx = hx[i];
+    }
   }
 
+  // 各ターンの行動
   rep(_, TURN) {
     // 並行方向に線をひく
     string move(M, 'A');
     rep(i, M) {
+      if (hx[i] == mx) {
+        move[i] = '.';
+        continue;
+      }
       // 下に障害物をおくことができる
       if (!is_out_of_bounds(hx[i] + 1, hy[i]) &&
           can_place_partition(hx[i] + 1, hy[i])) {

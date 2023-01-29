@@ -50,3 +50,5 @@ Cargo.lock
 # Test cases
 in/
 out/
+
+tools/
